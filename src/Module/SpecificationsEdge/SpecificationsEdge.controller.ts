@@ -1,6 +1,9 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, Res } from '@nestjs/common';
 import { SpecificationsEdgeService } from './SpecificationsEdge.service';
-import { SpecificationsEdgeType } from './DTO/SpecificationsEdge.DTO';
+import {
+  postEdgeType,
+  SpecificationsEdgeType,
+} from './DTO/SpecificationsEdge.DTO';
 import { Response } from 'express';
 
 @Controller('api/v1/specificationsEdge')
@@ -19,9 +22,15 @@ export class SpecificationsEdgeController {
     );
   }
 
-  //  //============================================================================> GET all products
-  //  @Get('/getallproducts')
-  //  async getAllProduct(@Res() res: Response) {
-  //    return await this.ProductService.getAllProduct(res);
-  //  }
+  //============================================================================> delete edge
+  @Delete('/deleteEdge/:id')
+  async deleteEdge(@Param('id') id: string, @Res() res: Response) {
+    return await this.SpecificationsEdgeService.deleteEdge(id, res);
+  }
+
+  //============================================================================> POST edge
+  @Post('/postEdge')
+  async postEdge(@Body() body: postEdgeType, @Res() res: Response) {
+    return await this.SpecificationsEdgeService.postEdge(body, res);
+  }
 }

@@ -67,22 +67,46 @@ export class GenealogyTreeService {
     }
   }
 
-  // ==================================================================> GET CÂY GIA PHẢ
-  async getGenealogyTreeAll(id: string, res: Response) {
+  // ==================================================================> GET CÂY GIA PHẢ ADMIN
+  async getGenealogyTreeAll(res: Response) {
     try {
-      const genealogy = Number(id);
-
-      const DataGenealogyTree = await this.genealogyTreeRepository.findOne({
-        where: { id: genealogy },
-        relations: ['specificationsNode', 'specificationsEdge'],
+      const DataGenealogyTree = await this.genealogyTreeRepository.find({
+        relations: [
+          'specificationsNode',
+          'specificationsEdge',
+          'members',
+          'events',
+          'cashtracking',
+        ],
       });
       if (DataGenealogyTree) {
-        res.status(200).json({ data: DataGenealogyTree });
+        res.status(200).json({ data: DataGenealogyTree[0] });
       } else {
         res.status(404).json({ message: 'User not found' });
       }
     } catch (error) {
       res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }
+
+  // ==================================================================> POST TÊN CÂY GIA PHẢ
+  async UpdateGenealogyTree(
+    id: number,
+    data: CreateGenealogyTree,
+    res: Response,
+  ) {
+    try {
+      await this.genealogyTreeRepository.update(
+        { id: id },
+        {
+          nameGenealogyTree: data.nameGenealogyTree,
+          nameBranch: data.nameBranch,
+          address: data.address,
+        },
+      );
+      return res.status(200).json({ message: 'thành công' });
+    } catch (error) {
+      return res.status(500).json({ message: 'Internal Server Error' });
     }
   }
 }

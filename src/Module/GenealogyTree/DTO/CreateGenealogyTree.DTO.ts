@@ -7,12 +7,12 @@ export interface CreateGenealogyTree {
 
 //========================================> type post thông số node egde
 export interface GenealogyTreePayload {
-  userId: number; // Hoặc string, tùy vào loại id bạn sử dụng
+  userId: number;
   nodes: [
     {
-      id_node: number; // Hoặc string, tùy vào loại id bạn sử dụng
+      id_node: number;
       name_node: string;
-      day_node: string; // Hoặc Date, tùy thuộc vào định dạng bạn sử dụng
+      day_node: string;
       nameWife_node: string;
       positionX: number;
       positionY: number;
@@ -20,9 +20,9 @@ export interface GenealogyTreePayload {
   ];
   edges: [
     {
-      id_edge: number; // Hoặc string
-      source_edge: number; // Hoặc string
-      target_edge: number; // Hoặc string
+      id_edge: number;
+      source_edge: number;
+      target_edge: number;
     },
   ];
 }

@@ -7,13 +7,13 @@ export class Cashtracking {
   id: number;
 
   @Column({ nullable: false })
-  dayCash: number;
+  dayCash: Date;
 
   @Column({ type: 'decimal', precision: 12, scale: 2, nullable: false })
-  receive: number;
+  money: number;
 
-  @Column({ type: 'decimal', precision: 12, scale: 2, nullable: false })
-  spend: number;
+  @Column({ nullable: false })
+  selectCash: number;
 
   @Column({ type: 'text', nullable: false })
   description: string;

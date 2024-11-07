@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Res } from '@nestjs/common';
 import { GenealogyTreeService } from './GenealogyTree.service';
 import {
   CreateGenealogyTree,
@@ -26,8 +26,18 @@ export class GenealogyTreeController {
   }
 
   // ======================================================================> GET DỮ LIỆU CÂY GIA PHẢ
-  @Get('/getGenealogyTreeAll/:id')
-  async getGenealogyTreeAll(@Param('id') id: string, @Res() res: Response) {
-    return await this.GenealogyTreeService.getGenealogyTreeAll(id, res);
+  @Get('/getGenealogyTreeAll')
+  async getGenealogyTreeAll(@Res() res: Response) {
+    return await this.GenealogyTreeService.getGenealogyTreeAll(res);
+  }
+
+  // ======================================================================> POST CẬP NHẬT TÊN CÂY GIA PHẢ
+  @Patch('/UpdateGenealogyTree/:id')
+  async UpdateGenealogyTree(
+    @Param('id') id: number,
+    @Body() body: CreateGenealogyTree,
+    @Res() res: Response,
+  ) {
+    return await this.GenealogyTreeService.UpdateGenealogyTree(id, body, res);
   }
 }
