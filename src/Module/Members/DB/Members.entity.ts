@@ -1,23 +1,43 @@
-import { GenealogyTree } from 'src/Module/GenealogyTree/DB/GenealogyTree.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Comment } from 'src/Module/Comments/DB/Comment.entity';
+import { Like } from 'src/Module/Like/DB/Like.entity';
+import { MediaFile } from 'src/Module/MediaFile/DB/MediaFile.entity';
+import { Users } from 'src/Module/Users/DB/Users.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
 
 @Entity()
-export class Member {
+export class PostArticle {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
-  imgavatar: string;
+  @Column({ nullable: true, type: 'text' })
+  content: string;
 
-  @Column({ nullable: false })
-  name: string;
+  @CreateDateColumn()
+  createdAt: Date;
 
-  @Column({ nullable: false })
-  email: string;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-  @Column({ nullable: false })
-  phoneNumber: number;
+  @ManyToOne(() => Users, (user) => user.posts)
+  user: Users;
 
-  @ManyToOne(() => GenealogyTree, (genealogyTree) => genealogyTree.members)
-  genealogyTree: GenealogyTree;
+  @OneToMany(() => Comment, (comment) => comment.post)
+  comments: Comment[];
+
+  @OneToMany(() => Like, (like) => like.post)
+  likes: Like[];
+
+  @OneToMany(() => MediaFile, (mediaFile) => mediaFile.post, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  mediaFiles: MediaFile[];
 }

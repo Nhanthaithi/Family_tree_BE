@@ -1,7 +1,10 @@
 import { Cashtracking } from 'src/Module/CashTracking/DB/CashTracking.entity';
+import { Comment } from 'src/Module/Comments/DB/Comment.entity';
 import { Event } from 'src/Module/EventCalendar/DB/EventCalendar.entity';
 import { GenealogyTree } from 'src/Module/GenealogyTree/DB/GenealogyTree.entity';
-import { Member } from 'src/Module/Members/DB/Members.entity';
+import { Like } from 'src/Module/Like/DB/Like.entity';
+import { MediaFile } from 'src/Module/MediaFile/DB/MediaFile.entity';
+import { PostArticle } from 'src/Module/Members/DB/Members.entity';
 import { SpecificationsEdge } from 'src/Module/SpecificationsEdge/DB/SpecificationsEdge.entity';
 import { SpecificationsNode } from 'src/Module/SpecificationsNode/DB/SpecificationsNode.entity';
 import { Users } from 'src/Module/Users/DB/Users.entity';
@@ -18,7 +21,10 @@ export const config1: MysqlConnectionOptions = {
   entities: [
     Users,
     SpecificationsNode,
-    Member,
+    PostArticle,
+    Like,
+    MediaFile,
+    Comment,
     GenealogyTree,
     Event,
     Cashtracking,

@@ -1,6 +1,5 @@
 import { Cashtracking } from 'src/Module/CashTracking/DB/CashTracking.entity';
 import { Event } from 'src/Module/EventCalendar/DB/EventCalendar.entity';
-import { Member } from 'src/Module/Members/DB/Members.entity';
 import { SpecificationsEdge } from 'src/Module/SpecificationsEdge/DB/SpecificationsEdge.entity';
 import { SpecificationsNode } from 'src/Module/SpecificationsNode/DB/SpecificationsNode.entity';
 import { Users } from 'src/Module/Users/DB/Users.entity';
@@ -22,9 +21,6 @@ export class GenealogyTree {
 
   @Column({ nullable: false })
   id_use: number;
-
-  @OneToMany(() => Member, (member) => member.genealogyTree)
-  members: Member[];
 
   @OneToMany(() => Event, (event) => event.genealogyTree)
   events: Event[];

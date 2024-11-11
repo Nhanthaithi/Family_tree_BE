@@ -7,11 +7,22 @@ import cloudinary from './Cloudinary.config';
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: (req, file) => {
-    let imageFormat = file.originalname.split('.').pop();
+    let FileFormat = file.originalname.split('.').pop();
+    let resourceType = 'image';
+
+    if (['mp4', 'avi', 'mov', 'mkv'].includes(FileFormat)) {
+      resourceType = 'video';
+    }
+
     return {
-      folder: 'project-shoes',
-      format: imageFormat,
+      folder: 'project-giapha',
+      format: FileFormat,
       public_id: `${file.fieldname}-${Date.now()}`,
+      resource_type: resourceType,
+      eager: [
+        { width: 1000, crop: 'scale', quality: 'auto', fetch_format: 'auto' },
+      ],
+      eager_async: true,
     };
   },
 });
@@ -21,16 +32,23 @@ const fileFilter = (
   file: Express.Multer.File,
   cb: (error: Error | null, acceptFile: boolean) => void,
 ) => {
-  if (
-    ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].includes(
-      file.mimetype,
-    )
-  ) {
+  const allowedTypes = [
+    'image/jpeg',
+    'image/jpg',
+    'image/png',
+    'image/gif',
+    'video/mp4',
+    'video/avi',
+    'video/mov',
+    'video/mkv',
+  ];
+
+  if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
     cb(
       new Error(
-        'Invalid file type. Only JPEG, JPG, and PNG or GIF are allowed!',
+        'Chỉ chấp nhận các định dạng: JPEG, PNG, GIF, MP4, AVI, MOV, MKV',
       ),
       false,
     );
@@ -38,7 +56,7 @@ const fileFilter = (
 };
 
 const uploadLimits = {
-  fileSize: 10 * 1024 * 1024,
+  fileSize: 100 * 1024 * 1024,
 };
 
 export const multerUpload = {

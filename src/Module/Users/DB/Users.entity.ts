@@ -1,4 +1,7 @@
+import { Comment } from 'src/Module/Comments/DB/Comment.entity';
 import { GenealogyTree } from 'src/Module/GenealogyTree/DB/GenealogyTree.entity';
+import { Like } from 'src/Module/Like/DB/Like.entity';
+import { PostArticle } from 'src/Module/Members/DB/Members.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -6,6 +9,7 @@ import {
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
@@ -33,6 +37,15 @@ export class Users {
 
   @Column({ nullable: true })
   Genealogy_id: number;
+
+  @OneToMany(() => PostArticle, (post) => post.user)
+  posts: PostArticle[];
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
+
+  @OneToMany(() => Like, (like) => like.user)
+  likes: Like[];
 
   @CreateDateColumn()
   createdAt: Date;

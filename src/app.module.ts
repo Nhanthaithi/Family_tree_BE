@@ -4,10 +4,14 @@ import { config1 } from 'OrmConfigs';
 import { CashTrackingModule } from './Module/CashTracking/CashTracking.module';
 import { EventCalendarModule } from './Module/EventCalendar/EventCalendar.module';
 import { GenealogyTreeModule } from './Module/GenealogyTree/GenealogyTree.module';
-import { MemberModule } from './Module/Members/Members.module';
+
 import { UserModule } from './Module/Users/Users.module';
 import { SpecificationsNodeModule } from './Module/SpecificationsNode/SpecificationsNode.module';
 import { SpecificationsEdgeModule } from './Module/SpecificationsEdge/SpecificationsEdge.module';
+import { LikeModule } from './Module/Like/Like.module';
+import { CommentModule } from './Module/Comments/Comment.module';
+import { PostArticleModule } from './Module/Members/Members.module';
+import { MediaFileModule } from './Module/MediaFile/MediaFile.module';
 
 @Module({
   imports: [
@@ -15,7 +19,10 @@ import { SpecificationsEdgeModule } from './Module/SpecificationsEdge/Specificat
     CashTrackingModule,
     EventCalendarModule,
     GenealogyTreeModule,
-    MemberModule,
+    PostArticleModule,
+    LikeModule,
+    MediaFileModule,
+    CommentModule,
     UserModule,
     SpecificationsNodeModule,
     SpecificationsEdgeModule,
