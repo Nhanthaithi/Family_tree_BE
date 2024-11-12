@@ -88,7 +88,7 @@ export class PostArticleService {
   // ==================================================================> sửa bài viết
   async patchArticle(id: number, data: any, res: Response) {
     const dataUpdate = { content: data.content };
-    const oldMedia = JSON.parse(data.oldMediaFiles);
+    const oldMedia = data.oldMediaFiles ? JSON.parse(data.oldMediaFiles) : [];
 
     try {
       await this.PostArticleRepository.update({ id: id }, dataUpdate);
